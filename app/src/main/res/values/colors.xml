@@ -2,4 +2,23 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <!-- warna -->
+    <color name="bg_white">#F5F5FA</color>
+    <!-- Color -->
+    <color name="abuabu_muda_sekali">#CCEEEEEE</color>
+    <color name="abuabu_muda">#E6E6E6</color>
+    <color name="abuabu_tua">#767676</color>
+
+    <color name="success">#73B908</color>
+    <color name="danger">#DE252A</color>
+    <color name="merah">#FF0E15</color>
+    <color name="batal">#747496</color>
+    <color name="edit">#F0AD4E</color>
+
+    <color name="biru">#2596F7</color>
+    <color name="biru_main">#3E52B5</color>
+    <color name="biru_secondary">#3848A8</color>
+
 </resources>
