@@ -3,7 +3,7 @@ package com.munmundev.feri_aplikasipembayaraniuranair.data.model
 import com.google.gson.annotations.SerializedName
 
 class UsersModel(
-    @SerializedName("idUser")
+    @SerializedName("id_user")
     var idUser: String? = null,
 
     @SerializedName("nama")

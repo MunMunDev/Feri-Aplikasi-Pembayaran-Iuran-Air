@@ -1,4 +1,4 @@
-package com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.login
+package com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,8 +9,9 @@ import com.example.muharya_pengingatjadwalkeretaapi.utils.SharedPreferencesLogin
 import com.munmundev.feri_aplikasipembayaraniuranair.data.database.api.ApiConfig
 import com.munmundev.feri_aplikasipembayaraniuranair.data.model.UsersModel
 import com.munmundev.feri_aplikasipembayaraniuranair.databinding.ActivityLoginBinding
-import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.main.MainActivity
-import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.register.RegisterActivity
+import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.admin.main.AdminMainActivity
+import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user.main.MainActivity
+import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user.register.RegisterActivity
 import com.munmundev.feri_aplikasipembayaraniuranair.utils.LoadingAlertDialog
 import retrofit2.Call
 import retrofit2.Callback
@@ -76,15 +77,17 @@ class LoginActivity : AppCompatActivity() {
 
                             try{
                                 Toast.makeText(this@LoginActivity, "Login Berhasil", Toast.LENGTH_SHORT).show()
-//                                sharedPreferencesLogin.setLogin(valueIdUser.toInt(), valueUsername, valuePassword, valueSebagai)
+                                sharedPreferencesLogin.setLogin(valueIdUser.trim().toInt(), valueUsername, valuePassword, valueSebagai)
                                 if(valueSebagai=="user"){
                                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                                 } else{
-                                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                                    startActivity(Intent(this@LoginActivity, AdminMainActivity::class.java))
                                 }
                             } catch (ex: Exception){
                                 Toast.makeText(this@LoginActivity, "gagal: $ex", Toast.LENGTH_SHORT).show()
                             }
+                            Log.d(TAG, "respon data: ${valueIdUser.trim()}, $valueUsername, $valuePassword, $valueSebagai")
+
                         }
                     }
                     else{

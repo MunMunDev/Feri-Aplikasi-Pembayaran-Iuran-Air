@@ -1,4 +1,4 @@
-package com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.register
+package com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user.register
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +10,7 @@ import com.munmundev.feri_aplikasipembayaraniuranair.data.database.api.ApiConfig
 import com.munmundev.feri_aplikasipembayaraniuranair.data.model.ResponseModel
 import com.munmundev.feri_aplikasipembayaraniuranair.data.model.UsersModel
 import com.munmundev.feri_aplikasipembayaraniuranair.databinding.ActivityRegisterBinding
-import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.login.LoginActivity
+import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user.login.LoginActivity
 import com.munmundev.feri_aplikasipembayaraniuranair.utils.LoadingAlertDialog
 import retrofit2.Call
 import retrofit2.Callback
