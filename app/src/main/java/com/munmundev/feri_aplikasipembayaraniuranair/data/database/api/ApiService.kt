@@ -23,10 +23,13 @@ interface ApiService {
                           @Query("username") username: String?=null
     ): Call<ArrayList<UsersModel>>
 
+    @GET("iuran-kebersihan/api/get.php")
+    fun getAllUser(@Query("all_user") allUser: String?=null
+    ): UsersModel
+
 
 
     // POST
-
     @FormUrlEncoded
     @POST("iuran-kebersihan/api/post.php")
     fun registerUser(@Field("registerUser") registerUser:String?=null,
