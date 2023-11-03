@@ -1,4 +1,4 @@
-package com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user.register
+package com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +10,6 @@ import com.munmundev.feri_aplikasipembayaraniuranair.data.database.api.ApiConfig
 import com.munmundev.feri_aplikasipembayaraniuranair.data.model.ResponseModel
 import com.munmundev.feri_aplikasipembayaraniuranair.data.model.UsersModel
 import com.munmundev.feri_aplikasipembayaraniuranair.databinding.ActivityRegisterBinding
-import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user.login.LoginActivity
 import com.munmundev.feri_aplikasipembayaraniuranair.utils.LoadingAlertDialog
 import retrofit2.Call
 import retrofit2.Callback
@@ -84,7 +83,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun registerUser(um: UsersModel){
-        ApiConfig.getRetrofit().registerUser("", um.nama, um.alamat, um.nomorHp, um.username, um.password, um.sebagai)
+        ApiConfig.getRetrofit().addUser("", um.nama!!, um.alamat!!, um.nomorHp!!, um.username!!, um.password!!, um.sebagai!!)
             .enqueue(object: Callback<ResponseModel> {
                 override fun onResponse(call: Call<ResponseModel>, response: Response<ResponseModel>) {
                     Toast.makeText(this@RegisterActivity, "Berhasil Membuat Akun", Toast.LENGTH_SHORT).show()

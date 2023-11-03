@@ -1,4 +1,4 @@
-package com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user.login
+package com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,9 +9,7 @@ import com.example.muharya_pengingatjadwalkeretaapi.utils.SharedPreferencesLogin
 import com.munmundev.feri_aplikasipembayaraniuranair.data.database.api.ApiConfig
 import com.munmundev.feri_aplikasipembayaraniuranair.data.model.UsersModel
 import com.munmundev.feri_aplikasipembayaraniuranair.databinding.ActivityLoginBinding
-import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.admin.main.AdminMainActivity
-import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user.main.MainActivity
-import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user.register.RegisterActivity
+import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.admin.AdminMainActivity
 import com.munmundev.feri_aplikasipembayaraniuranair.utils.LoadingAlertDialog
 import retrofit2.Call
 import retrofit2.Callback

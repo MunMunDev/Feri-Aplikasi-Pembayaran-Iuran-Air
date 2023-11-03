@@ -12,7 +12,7 @@ class UsersModel(
     @SerializedName("alamat")
     var alamat: String? = null,
 
-    @SerializedName("nomorHp")
+    @SerializedName("nomor_hp")
     var nomorHp: String? = null,
 
     @SerializedName("username")
