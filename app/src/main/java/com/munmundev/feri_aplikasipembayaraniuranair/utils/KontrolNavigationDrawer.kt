@@ -11,8 +11,8 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.muharya_pengingatjadwalkeretaapi.utils.SharedPreferencesLogin
 import com.munmundev.feri_aplikasipembayaraniuranair.R
-import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user.login.LoginActivity
-import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user.main.MainActivity
+import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user.LoginActivity
+import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user.MainActivity
 
 class KontrolNavigationDrawer(var context: Context) {
     var sharedPreferences = SharedPreferencesLogin(context)

@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiConfig {
 //    private const val BASE_URL = "https://aplikasitugas17.000webhostapp.com/"
 //    private const val BASE_URL = "http://192.168.1.4/"
-    private const val BASE_URL = "http://192.168.1.22/"
+    private const val BASE_URL = "http://192.168.1.7/"
 
     fun getRetrofit(): ApiService{
         val gson = GsonBuilder().create()
