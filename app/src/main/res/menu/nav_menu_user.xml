@@ -8,13 +8,9 @@
             android:title="Halaman Home"
             android:icon="@drawable/baseline_home_24"/>
         <item
-            android:id="@+id/userNavDrawerYourAgenda"
-            android:title="Jadwal Anda"
-            android:icon="@drawable/baseline_home_24"/>
-        <item
-            android:id="@+id/userNavDrawerAllJadwal"
-            android:title="Semua Jadwal"
-            android:icon="@drawable/baseline_home_24"/>
+            android:id="@+id/userNavDrawerRiwayatPembayaran"
+            android:title="Riwayat Pembayaran"
+            android:icon="@drawable/icon_riwayat_pembayaran"/>
         <item
             android:id="@+id/userNavDrawerAkun"
             android:title="Akun Anda"

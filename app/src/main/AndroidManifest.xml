@@ -3,8 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
+        android:name=".utils.hilt.BaseApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,22 +20,58 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activity.admin.AdminPembayaranActivity"
+            android:name=".ui.activity.admin.biaya.AdminBiayaActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.admin.AdminUsersActivity"
+            android:name=".ui.activity.admin.perumahan.list_perumahan.AdminPerumahanActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.admin.AdminMainActivity"
+            android:name=".ui.activity.admin.perumahan.list_blok.AdminBlokPerumahanActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.user.RegisterActivity"
+            android:name=".ui.activity.user.payment.PaymentActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.user.LoginActivity"
+            android:name=".ui.activity.admin.pembayaran.list_blok.AdminListBlokActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.user.SplashScreenActivity"
+            android:name=".ui.activity.admin.account.AdminDetailUserAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.admin.pembayaran.riwayat.AdminRincianRiwayatPembayaranActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.admin.pembayaran.riwayat.AdminRiwayatPembayaranActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.user.riwayat_pembayaran.DetailRiwayatPembayaranActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.user.riwayat_pembayaran.RiwayatPembayaranActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.user.akun.AkunActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.admin.pembayaran.list_perumahan.AdminPembayaranActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.admin.pembayaran.detail.AdminDetailPembayaranActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.admin.account.AdminUsersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.admin.main.AdminMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.register.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,7 +80,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.user.MainActivity"
+            android:name=".ui.activity.user.main.MainActivity"
             android:exported="true" />
     </application>
 

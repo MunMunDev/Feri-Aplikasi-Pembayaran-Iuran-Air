@@ -11,8 +11,15 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.muharya_pengingatjadwalkeretaapi.utils.SharedPreferencesLogin
 import com.munmundev.feri_aplikasipembayaraniuranair.R
-import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user.LoginActivity
-import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user.MainActivity
+import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.admin.main.AdminMainActivity
+import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.admin.account.AdminUsersActivity
+import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.admin.biaya.AdminBiayaActivity
+import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.admin.pembayaran.list_perumahan.AdminPembayaranActivity
+import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.admin.perumahan.list_perumahan.AdminPerumahanActivity
+import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user.akun.AkunActivity
+import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.login.LoginActivity
+import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user.main.MainActivity
+import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.user.riwayat_pembayaran.RiwayatPembayaranActivity
 
 class KontrolNavigationDrawer(var context: Context) {
     var sharedPreferences = SharedPreferencesLogin(context)
@@ -35,21 +42,16 @@ class KontrolNavigationDrawer(var context: Context) {
                         context.startActivity(intent)
                         activity.finish()
                     }
-//                    R.id.userNavDrawerYourAgenda ->{
-//                        val intent = Intent(context, YourAgendaActivity::class.java)
-//                        context.startActivity(intent)
-//                        activity.finish()
-//                    }
-//                    R.id.userNavDrawerAllJadwal ->{
-//                        val intent = Intent(context, SemuaJadwalActivity::class.java)
-//                        context.startActivity(intent)
-//                        activity.finish()
-//                    }
-//                    R.id.userNavDrawerAkun ->{
-//                        val intent = Intent(context, AkunActivity::class.java)
-//                        context.startActivity(intent)
-//                        activity.finish()
-//                    }
+                    R.id.userNavDrawerRiwayatPembayaran ->{
+                        val intent = Intent(context, RiwayatPembayaranActivity::class.java)
+                        context.startActivity(intent)
+                        activity.finish()
+                    }
+                    R.id.userNavDrawerAkun ->{
+                        val intent = Intent(context, AkunActivity::class.java)
+                        context.startActivity(intent)
+                        activity.finish()
+                    }
                     R.id.userBtnKeluar ->{
                         logout(activity)
                     }
@@ -57,44 +59,34 @@ class KontrolNavigationDrawer(var context: Context) {
             }
             else if(sharedPreferences.getSebagai() == "admin"){
                 when(it.itemId){
-//                    R.id.adminNavDrawerHome ->{
-//                        val intent = Intent(context, AdminHomeActivity::class.java)
-//                        context.startActivity(intent)
-//                        activity.finish()
-//                    }
-//                    R.id.adminNavDrawerKotaKabTerdaftar ->{
-//                        val intent = Intent(context, AdminKotaKabTerdaftar::class.java)
-//                        context.startActivity(intent)
-//                        activity.finish()
-//                    }
-//                    R.id.adminNavDrawerStasiun ->{
-//                        val intent = Intent(context, AdminStasiunActivity::class.java)
-//                        context.startActivity(intent)
-//                        activity.finish()
-//                    }
-//                    R.id.adminNavDrawerRute ->{
-//                        val intent = Intent(Intent(context, AdminRuteActivity::class.java))
-//                        context.startActivity(intent)
-//                        activity.finish()
-//                    }
-//                    R.id.adminNavDrawerTiket ->{
-//                        val intent = Intent(context, AdminTiketActivity::class.java)
-//                        context.startActivity(intent)
-//                        activity.finish()
-//                    }
-//                    R.id.adminNavDrawerPesanan ->{
-//                        val intent = Intent(context, AdminPesananActivity::class.java)
-//                        context.startActivity(intent)
-//                        activity.finish()
-//                    }
-//                    R.id.adminNavDrawerSemuaAkun ->{
-//                        val intent = Intent(context, AdminSemuaAkunActivity::class.java)
-//                        context.startActivity(intent)
-//                        activity.finish()
-//                    }
-//                    R.id.btnAdminKeluar ->{
-//                        logout(activity)
-//                    }
+                    R.id.adminNavDrawerHome ->{
+                        val intent = Intent(context, AdminMainActivity::class.java)
+                        context.startActivity(intent)
+                        activity.finish()
+                    }
+                    R.id.adminNavDrawerPerumahan->{
+                        val intent = Intent(context, AdminPerumahanActivity::class.java)
+                        context.startActivity(intent)
+                        activity.finish()
+                    }
+                    R.id.adminNavDrawerBiaya->{
+                        val intent = Intent(context, AdminBiayaActivity::class.java)
+                        context.startActivity(intent)
+                        activity.finish()
+                    }
+                    R.id.adminNavDrawerPembayaran->{
+                        val intent = Intent(context, AdminPembayaranActivity::class.java)
+                        context.startActivity(intent)
+                        activity.finish()
+                    }
+                    R.id.adminNavDrawerAkun ->{
+                        val intent = Intent(context, AdminUsersActivity::class.java)
+                        context.startActivity(intent)
+                        activity.finish()
+                    }
+                    R.id.btnAdminKeluar ->{
+                        logout(activity)
+                    }
                 }
 
             }
@@ -118,7 +110,8 @@ class KontrolNavigationDrawer(var context: Context) {
         dialog.show()
 
         btnLogout.setOnClickListener {
-            sharedPreferences.setLogin(0, "","", "")
+            sharedPreferences.setLogin(0, "","", "","", "","")
+//            sharedPreferences.setLogin(0, "","", "","", "","", "")
             context.startActivity(Intent(context, LoginActivity::class.java))
             activity.finish()
         }

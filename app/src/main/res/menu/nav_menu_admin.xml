@@ -7,6 +7,22 @@
             android:id="@+id/adminNavDrawerHome"
             android:title="Home"
             android:icon="@drawable/baseline_home_24"/>
+        <item
+            android:id="@+id/adminNavDrawerPerumahan"
+            android:title="Perumahan"
+            android:icon="@drawable/baseline_home_work_24"/>
+        <item
+            android:id="@+id/adminNavDrawerBiaya"
+            android:title="Biaya"
+            android:icon="@drawable/baseline_attach_money_24"/>
+        <item
+            android:id="@+id/adminNavDrawerPembayaran"
+            android:title="Pembayaran"
+            android:icon="@drawable/baseline_currency_exchange_24"/>
+        <item
+            android:id="@+id/adminNavDrawerAkun"
+            android:title="Akun"
+            android:icon="@drawable/baseline_person_24"/>
     </group>
 
     <group android:id="@+id/adminDrawerBottom">
