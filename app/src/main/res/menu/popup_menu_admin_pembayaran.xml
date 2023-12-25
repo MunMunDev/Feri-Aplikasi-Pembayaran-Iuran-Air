@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/pembayaranSekarang"
+        android:title="Detail Pembayaran Sekarang"/>
+    <item android:id="@+id/riwayatPembayaran"
+        android:title="Riwayat Pembayaran"/>
+</menu>

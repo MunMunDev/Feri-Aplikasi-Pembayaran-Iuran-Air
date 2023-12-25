@@ -1,5 +1,7 @@
 package com.munmundev.feri_aplikasipembayaraniuranair.data.model
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 class UsersModel(
@@ -8,6 +10,9 @@ class UsersModel(
 
     @SerializedName("nama")
     var nama: String? = null,
+
+    @SerializedName("id_blok")
+    var idBlok: String? = null,
 
     @SerializedName("alamat")
     var alamat: String? = null,
@@ -22,5 +27,42 @@ class UsersModel(
     var password: String? = null,
 
     @SerializedName("sebagai")
-    var sebagai: String? = null
-)
+    var sebagai: String? = null,
+): Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString()
+    ) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(idUser)
+        parcel.writeString(nama)
+        parcel.writeString(idBlok)
+        parcel.writeString(alamat)
+        parcel.writeString(nomorHp)
+        parcel.writeString(username)
+        parcel.writeString(password)
+        parcel.writeString(sebagai)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<UsersModel> {
+        override fun createFromParcel(parcel: Parcel): UsersModel {
+            return UsersModel(parcel)
+        }
+
+        override fun newArray(size: Int): Array<UsersModel?> {
+            return arrayOfNulls(size)
+        }
+    }
+}

@@ -1,5 +1,7 @@
 package com.munmundev.feri_aplikasipembayaraniuranair.data.model
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 class PembayaranModel (
@@ -29,4 +31,43 @@ class PembayaranModel (
 
     @SerializedName("waktu_pembayaran")
     var waktuPembayaran: String? = null
-)
+):Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString()
+    ) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(idPembayaran)
+        parcel.writeString(idUser)
+        parcel.writeString(nama)
+        parcel.writeString(alamat)
+        parcel.writeString(harga)
+        parcel.writeString(denda)
+        parcel.writeString(biayaAdmin)
+        parcel.writeString(tenggatWaktu)
+        parcel.writeString(waktuPembayaran)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<PembayaranModel> {
+        override fun createFromParcel(parcel: Parcel): PembayaranModel {
+            return PembayaranModel(parcel)
+        }
+
+        override fun newArray(size: Int): Array<PembayaranModel?> {
+            return arrayOfNulls(size)
+        }
+    }
+}

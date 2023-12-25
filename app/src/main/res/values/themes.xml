@@ -1,8 +1,28 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.FeriAplikasiPembayaranIuranAir" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/biru_main</item>
+        <item name="background">@color/white</item>
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+    <style name="ButtonDefaultConfig">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+
+    </style>
+    <style name="ButtonSuccess" parent="ButtonDefaultConfig">
+        <item name="background">@drawable/bg_btn_success</item>
+    </style>
+    <style name="ButtonError" parent="ButtonDefaultConfig">
+        <item name="background">@drawable/bg_btn_danger</item>
+    </style>
+    <style name="ButtonEdit" parent="ButtonDefaultConfig">
+        <item name="background">@drawable/bg_btn_edit</item>
+    </style>
+    <style name="ButtonCancel" parent="ButtonDefaultConfig">
+        <item name="background">@drawable/bg_btn_batal</item>
     </style>
 
     <style name="Theme.FeriAplikasiPembayaranIuranAir" parent="Base.Theme.FeriAplikasiPembayaranIuranAir" />
