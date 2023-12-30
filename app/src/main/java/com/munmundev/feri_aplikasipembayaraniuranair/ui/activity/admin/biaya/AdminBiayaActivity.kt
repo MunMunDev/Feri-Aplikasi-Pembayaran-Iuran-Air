@@ -1,5 +1,6 @@
 package com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.admin.biaya
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -12,6 +13,7 @@ import com.munmundev.feri_aplikasipembayaraniuranair.R
 import com.munmundev.feri_aplikasipembayaraniuranair.data.model.BiayaModel
 import com.munmundev.feri_aplikasipembayaraniuranair.data.model.ResponseModel
 import com.munmundev.feri_aplikasipembayaraniuranair.databinding.ActivityAdminBiayaBinding
+import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.admin.main.AdminMainActivity
 import com.munmundev.feri_aplikasipembayaraniuranair.utils.KontrolNavigationDrawer
 import com.munmundev.feri_aplikasipembayaraniuranair.utils.KonversiRupiah
 import com.munmundev.feri_aplikasipembayaraniuranair.utils.LoadingAlertDialog
@@ -64,10 +66,16 @@ class AdminBiayaActivity : AppCompatActivity() {
         }
     }
 
+    private fun setDataFailureFetchBiaya(message: String) {
+        Toast.makeText(this@AdminBiayaActivity, message, Toast.LENGTH_SHORT).show()
+        setErrorBiaya()
+        loading.alertDialogCancel()
+    }
 
     private fun setDataSuccessFetchBiaya(data: ArrayList<BiayaModel>) {
         val valueData = data[0]
         if(data.isNotEmpty()){
+            setHaveDataBiaya()
             val biaya = rupiah.rupiah(valueData.biaya!!.toLong())
             val denda = rupiah.rupiah(valueData.denda!!.toLong())
             val biayaAdmin = rupiah.rupiah(valueData.biaya_admin!!.toLong())
@@ -82,8 +90,18 @@ class AdminBiayaActivity : AppCompatActivity() {
             }
         } else{
             Toast.makeText(this@AdminBiayaActivity, "Tidak Ada Data", Toast.LENGTH_SHORT).show()
+            setErrorBiaya()
         }
         loading.alertDialogCancel()
+    }
+
+    private fun setHaveDataBiaya(){
+        binding.clBiaya.visibility = View.VISIBLE
+        binding.clUbah.visibility = View.VISIBLE
+    }
+    private fun setErrorBiaya(){
+        binding.clBiaya.visibility = View.GONE
+        binding.clUbah.visibility = View.GONE
     }
 
     private fun setButtonUpdate(biaya: String, denda:String, biayaAdmin:String) {
@@ -153,8 +171,10 @@ class AdminBiayaActivity : AppCompatActivity() {
         fetchDataBiaya()
     }
 
-    private fun setDataFailureFetchBiaya(message: String) {
-        Toast.makeText(this@AdminBiayaActivity, message, Toast.LENGTH_SHORT).show()
-        loading.alertDialogCancel()
+
+    override fun onBackPressed() {
+        startActivity(Intent(this@AdminBiayaActivity, AdminMainActivity::class.java))
+        finish()
+        super.onBackPressed()
     }
 }

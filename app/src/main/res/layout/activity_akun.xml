@@ -49,7 +49,7 @@
                 android:textColor="@color/white"
                 android:textStyle="bold"/>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/clProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,7 +58,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="20dp"
                 android:paddingBottom="16dp"
-                android:background="@drawable/bg_card">
+                android:background="@drawable/bg_card"
+                android:orientation="vertical">
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="match_parent"
@@ -72,101 +73,195 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"/>
-                <EditText
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="6dp"
+                    android:text="Nama"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+                <TextView
                     android:id="@+id/etNama"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/title"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginEnd="1dp"
-                    android:hint="Masukkan Nama"
-                    android:drawableStart="@drawable/baseline_person_outline_24"
-                    android:drawablePadding="6dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="Masukkan Nama"
                     android:textColor="@color/black"
                     android:textStyle="normal"
                     android:textSize="16sp"
                     android:inputType="text"
                     android:maxLength="30"
-                    android:background="@drawable/bg_stroke_biru"
-                    android:enabled="false"/>
+                    android:background="@drawable/bg_stroke_biru" />
 
-                <EditText
-                    android:id="@+id/etAlamat"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/etNama"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginEnd="1dp"
-                    android:hint="Masukkan Alamat"
-                    android:drawableStart="@drawable/icon_location"
-                    android:drawablePadding="6dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="6dp"
+                    android:text="Perumahan"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/etPerumahan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/title"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/black"
+                    android:textStyle="normal"
+                    android:textSize="16sp"
+                    android:text="Nama Perumahan"
+                    android:maxLength="30"
+                    android:background="@drawable/bg_stroke_biru" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="6dp"
+                    android:text="Blok perumahan"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/etBlokPerumahan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/title"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/black"
+                    android:textStyle="normal"
+                    android:textSize="16sp"
+                    android:text="Blok Perumahan"
+                    android:maxLength="30"
+                    android:background="@drawable/bg_stroke_biru" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="6dp"
+                    android:text="No Alamat"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/etNoAlamat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="Masukkan No Alamat"
                     android:textColor="@color/black"
                     android:textStyle="normal"
                     android:textSize="16sp"
                     android:inputType="text"
-                    android:maxLength="50"
-                    android:background="@drawable/bg_stroke_biru"
-                    android:enabled="false"/>
+                    android:maxLength="12"
+                    android:background="@drawable/bg_stroke_biru" />
 
-                <EditText
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="6dp"
+                    android:text="Nomor HP"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+
+                <TextView
                     android:id="@+id/etNomorHp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/etAlamat"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginEnd="1dp"
-                    android:hint="Masukkan Nomor Hp"
-                    android:drawableStart="@drawable/icon_smartphone"
-                    android:drawablePadding="6dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="Masukkan Nomor Hp"
                     android:textColor="@color/black"
                     android:textStyle="normal"
                     android:textSize="16sp"
                     android:inputType="number"
                     android:maxLength="12"
-                    android:background="@drawable/bg_stroke_biru"
-                    android:enabled="false"/>
+                    android:background="@drawable/bg_stroke_biru" />
 
-                <EditText
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="6dp"
+                    android:text="Username"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+                <TextView
                     android:id="@+id/etUsername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/etNomorHp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginEnd="1dp"
-                    android:hint="Masukkan Username"
-                    android:drawableStart="@drawable/baseline_person_outline_24"
-                    android:drawablePadding="6dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="Masukkan Username"
                     android:textColor="@color/black"
                     android:textStyle="normal"
                     android:textSize="16sp"
-                    android:inputType="text"
                     android:maxLength="20"
-                    android:background="@drawable/bg_stroke_biru"
-                    android:enabled="false"/>
+                    android:background="@drawable/bg_stroke_biru" />
 
-                <EditText
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="6dp"
+                    android:text="Password"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+                <TextView
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/etUsername"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginEnd="1dp"
-                    android:hint="Masukkan Password"
-                    android:drawableStart="@drawable/baseline_lock_open_24"
-                    android:drawablePadding="6dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="Masukkan Password"
                     android:textColor="@color/black"
                     android:textStyle="normal"
                     android:textSize="16sp"
                     android:inputType="textPassword"
                     android:maxLength="20"
-                    android:background="@drawable/bg_stroke_biru"
-                    android:enabled="false"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:background="@drawable/bg_stroke_biru" />
+
+            </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

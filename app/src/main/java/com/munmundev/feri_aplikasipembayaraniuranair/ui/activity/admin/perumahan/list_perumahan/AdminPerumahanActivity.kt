@@ -18,6 +18,7 @@ import com.munmundev.feri_aplikasipembayaraniuranair.adapter.admin.AdminPerumaha
 import com.munmundev.feri_aplikasipembayaraniuranair.data.model.PerumahanModel
 import com.munmundev.feri_aplikasipembayaraniuranair.data.model.ResponseModel
 import com.munmundev.feri_aplikasipembayaraniuranair.databinding.ActivityAdminPerumahanBinding
+import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.admin.main.AdminMainActivity
 import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.admin.perumahan.list_blok.AdminBlokPerumahanActivity
 import com.munmundev.feri_aplikasipembayaraniuranair.utils.KontrolNavigationDrawer
 import com.munmundev.feri_aplikasipembayaraniuranair.utils.LoadingAlertDialog
@@ -270,6 +271,12 @@ class AdminPerumahanActivity : AppCompatActivity() {
         btnBatal.setOnClickListener {
             dialogInputan.dismiss()
         }
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this@AdminPerumahanActivity, AdminMainActivity::class.java))
+        finish()
+        super.onBackPressed()
     }
 
 }

@@ -70,6 +70,7 @@ interface ApiService {
     suspend fun addUser(
         @Field("add_user") addUser:String,
         @Field("nama") nama:String,
+        @Field("id_blok") idBlokPerumahan:String,
         @Field("alamat") alamat:String,
         @Field("nomor_hp") nomorHp:String,
         @Field("username") username:String,
@@ -83,10 +84,19 @@ interface ApiService {
         @Field("update_akun") update_akun: String,
         @Field("id_user") id_user: String,
         @Field("nama") nama: String,
-        @Field("alamat") alamat: String,
+        @Field("id_blok") id_blok: String,
+        @Field("no_alamat") no_alamat: String,
         @Field("nomor_hp") nomor_hp: String,
         @Field("username") username: String,
-        @Field("password") password: String
+        @Field("password") password: String,
+        @Field("username_lama") usernameLama: String
+    ): ArrayList<ResponseModel>
+
+    @FormUrlEncoded
+    @POST("iuran-kebersihan/api/post.php")
+    suspend fun postHapusUser(
+        @Field("hapus_user") hapus_user: String,
+        @Field("id_user") id_user: String
     ): ArrayList<ResponseModel>
 
     @FormUrlEncoded

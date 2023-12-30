@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.munmundev.feri_aplikasipembayaraniuranair.data.database.api.ApiService
+import com.munmundev.feri_aplikasipembayaraniuranair.data.model.PerumahanModel
+import com.munmundev.feri_aplikasipembayaraniuranair.data.model.ResponseModel
 import com.munmundev.feri_aplikasipembayaraniuranair.data.model.UsersModel
 import com.munmundev.feri_aplikasipembayaraniuranair.utils.network.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,22 +19,42 @@ class AkunViewModel @Inject constructor(
     private val api: ApiService
 ): ViewModel() {
     var _akun = MutableLiveData<UIState<ArrayList<UsersModel>>>()
-    fun postData(usersModel: UsersModel){
+    var _responsePostUpdateUser = MutableLiveData<UIState<ArrayList<ResponseModel>>>()
+    var _perumahan = MutableLiveData<UIState<ArrayList<PerumahanModel>>>()
+    var _blokPerumahan = MutableLiveData<UIState<ArrayList<PerumahanModel>>>()
+    fun fetchDataPerumahan(){
         viewModelScope.launch(Dispatchers.IO){
             try {
-                val data = api.postUpdateUser(
-                    "", usersModel.idUser!!, usersModel.nama!!,
-                    usersModel.alamat!!, usersModel.nomorHp!!,
-                    usersModel.username!!, usersModel.password!!
-                )
-                if(data[0].status == "0"){
-                    _akun.postValue(UIState.Success(arrayListOf(usersModel)))
-                }
-                else{
-                    _akun.postValue(UIState.Success(arrayListOf()))
-                }
+                val dataPerumahan = api.getAllPerumahan("")
+                _perumahan.postValue(UIState.Success(dataPerumahan))
             } catch (ex: Exception){
-                _akun.postValue(UIState.Failure("Error Pada ${ex.message}"))
+                _perumahan.postValue(UIState.Failure("Error: ${ex.message}"))
+            }
+        }
+    }
+
+    fun fetchDataBlokPerumahan(){
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                val dataBlokPerumahan = api.getAllBlokPerumahan("")
+                _blokPerumahan.postValue(UIState.Success(dataBlokPerumahan))
+            } catch (ex: Exception){
+                _blokPerumahan.postValue(UIState.Failure("Error: ${ex.message}"))
+            }
+        }
+    }
+
+    fun postUpdateUser(
+        idUser:String, nama: String, idBlok:String,
+        noAlamat: String, nomorHp: String, username: String,
+        password: String, usernameLama:String
+    ){
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                val data = api.postUpdateUser("", idUser, nama, idBlok, noAlamat, nomorHp, username, password, usernameLama)
+                _responsePostUpdateUser.postValue(UIState.Success(data))
+            } catch (ex: Exception){
+                _responsePostUpdateUser.postValue(UIState.Failure("Error: ${ex.message}"))
             }
         }
     }
@@ -40,4 +62,7 @@ class AkunViewModel @Inject constructor(
 
 
     fun getData():LiveData<UIState<ArrayList<UsersModel>>> = _akun
+    fun getUpdateData(): LiveData<UIState<ArrayList<ResponseModel>>> = _responsePostUpdateUser
+    fun getDataPerumahan(): LiveData<UIState<ArrayList<PerumahanModel>>> = _perumahan
+    fun getDataBlokPerumahan(): LiveData<UIState<ArrayList<PerumahanModel>>> = _blokPerumahan
 }

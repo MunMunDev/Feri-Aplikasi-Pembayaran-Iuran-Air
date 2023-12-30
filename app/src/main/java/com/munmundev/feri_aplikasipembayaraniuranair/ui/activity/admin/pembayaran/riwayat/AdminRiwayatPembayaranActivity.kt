@@ -87,13 +87,14 @@ class AdminRiwayatPembayaranActivity : AppCompatActivity() {
     }
 
     private fun setData(data: ArrayList<PembayaranModel>) {
-        var tempData = arrayListOf<PembayaranModel>()
-        for (value in data){
-            if (value.waktuPembayaran!!.isNotEmpty()){
-                tempData.add(value)
-            }
-        }
-        adapter = RiwayatPembayaranAdapter(tempData, object : RiwayatPembayaranAdapter.OnClick{
+        Log.d("DetailTAG", "data: ${data.size}")
+//        var tempData = arrayListOf<PembayaranModel>()
+//        for (value in data){
+//            if (value.waktuPembayaran!!.isNotEmpty()){
+//                tempData.add(value)
+//            }
+//        }
+        adapter = RiwayatPembayaranAdapter(data, object : RiwayatPembayaranAdapter.OnClick{
             override fun clickItem(pembayaran: PembayaranModel, it: View) {
                 val popupMenu = PopupMenu(this@AdminRiwayatPembayaranActivity, it)
                 popupMenu.inflate(R.menu.popup_menu_rincian_edit_delete)

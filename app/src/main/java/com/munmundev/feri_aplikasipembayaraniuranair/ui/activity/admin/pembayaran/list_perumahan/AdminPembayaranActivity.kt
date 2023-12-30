@@ -15,6 +15,7 @@ import com.munmundev.feri_aplikasipembayaraniuranair.adapter.admin.AdminListPeru
 import com.munmundev.feri_aplikasipembayaraniuranair.data.model.PerumahanModel
 import com.munmundev.feri_aplikasipembayaraniuranair.data.model.ResponseModel
 import com.munmundev.feri_aplikasipembayaraniuranair.databinding.ActivityAdminPembayaranBinding
+import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.admin.main.AdminMainActivity
 import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.admin.pembayaran.list_blok.AdminListBlokActivity
 import com.munmundev.feri_aplikasipembayaraniuranair.utils.KontrolNavigationDrawer
 import com.munmundev.feri_aplikasipembayaraniuranair.utils.LoadingAlertDialog
@@ -144,5 +145,11 @@ class AdminPembayaranActivity : AppCompatActivity() {
     private fun setDataFailure(message: String) {
         Toast.makeText(this@AdminPembayaranActivity, message, Toast.LENGTH_SHORT).show()
         loading.alertDialogCancel()
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this@AdminPembayaranActivity, AdminMainActivity::class.java))
+        finish()
+        super.onBackPressed()
     }
 }

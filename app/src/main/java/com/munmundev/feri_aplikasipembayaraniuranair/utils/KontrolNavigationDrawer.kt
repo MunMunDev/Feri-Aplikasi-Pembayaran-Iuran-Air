@@ -110,7 +110,7 @@ class KontrolNavigationDrawer(var context: Context) {
         dialog.show()
 
         btnLogout.setOnClickListener {
-            sharedPreferences.setLogin(0, "","", "","", "","")
+            sharedPreferences.setLogin(0, "", "","", "","", "","")
 //            sharedPreferences.setLogin(0, "","", "","", "","", "")
             context.startActivity(Intent(context, LoginActivity::class.java))
             activity.finish()

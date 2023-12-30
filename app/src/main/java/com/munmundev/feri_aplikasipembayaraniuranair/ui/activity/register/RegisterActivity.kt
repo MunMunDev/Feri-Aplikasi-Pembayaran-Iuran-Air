@@ -3,8 +3,20 @@ package com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.register
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
+import com.munmundev.feri_aplikasipembayaraniuranair.R
+import com.munmundev.feri_aplikasipembayaraniuranair.data.model.PerumahanModel
+import com.munmundev.feri_aplikasipembayaraniuranair.data.model.ResponseModel
 import com.munmundev.feri_aplikasipembayaraniuranair.databinding.ActivityRegisterBinding
 import com.munmundev.feri_aplikasipembayaraniuranair.ui.activity.login.LoginActivity
 import com.munmundev.feri_aplikasipembayaraniuranair.utils.LoadingAlertDialog
@@ -13,20 +25,111 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
-    lateinit var registerBinding: ActivityRegisterBinding
+    lateinit var binding: ActivityRegisterBinding
     lateinit var loading: LoadingAlertDialog
-
-    private val registerViewModel : RegisterViewModel by viewModels()
+    private val viewModel : RegisterViewModel by viewModels()
+    private lateinit var listPerumahan: ArrayList<PerumahanModel>
+    private var listBlokPerumahan: ArrayList<PerumahanModel> = arrayListOf()
+    private lateinit var listNamaPerumahan: ArrayList<String>
+    private lateinit var listIdPerumahan: ArrayList<String>
+    private lateinit var listNamaBlokPerumahan: ArrayList<String>
+    private lateinit var listIdBlokPerumahan: ArrayList<String>
+    private var idBlokPerumahan: String = "0"
+    private var valueIdBlokPerumahan: String = "0"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        registerBinding = ActivityRegisterBinding.inflate(layoutInflater)
-        setContentView(registerBinding.root)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         loading = LoadingAlertDialog(this@RegisterActivity)
 
         button()
-        getCekUser()
+        setNullArrayList()
+        fetchDataPerumahan()
+        fetchDataBlokPerumahan()
+        getDataPerumahan()
+        getDataBlokPerumahan()
+        setDataSpinner()
+        getTambahData()
         getResponseRegisterUser()
 
+    }
+
+    private fun setNullArrayList() {
+        listIdPerumahan = arrayListOf()
+        listIdBlokPerumahan = arrayListOf()
+        listNamaPerumahan = arrayListOf()
+        listNamaBlokPerumahan = arrayListOf()
+    }
+
+    private fun setDataSpinner() {
+        setSpinnerPerumahan()
+        setSpinnerBlokPerumahan(binding.spBlokPerumahan, listNamaBlokPerumahan, listIdBlokPerumahan)
+    }
+
+    private fun setSpinnerPerumahan(){
+        val arrayAdapter = ArrayAdapter(this@RegisterActivity, android.R.layout.simple_spinner_item, listNamaPerumahan)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        var id = 0
+
+        binding.apply {
+            spPerumahan.adapter = arrayAdapter
+            spPerumahan.setSelection(id)
+
+            spPerumahan.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val numberPosition = spPerumahan.selectedItemPosition
+
+                    val valueIdPerumahan = listIdPerumahan[numberPosition]
+
+                    setValueIdPerumahan(valueIdPerumahan)
+                    setSpinnerBlokPerumahan(
+                        spBlokPerumahan,
+                        listNamaBlokPerumahan,
+                        listIdBlokPerumahan
+                    )
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+        }
+    }
+
+    private fun setSpinnerBlokPerumahan(
+        spBlokPerumahan: Spinner,
+        listNamaBlokPerumahan: ArrayList<String>,
+        listIdBlokPerumahan: ArrayList<String>
+    ) {
+        val arrayAdapterBlok = ArrayAdapter(
+            this@RegisterActivity,
+            android.R.layout.simple_spinner_item,
+            listNamaBlokPerumahan
+        )
+        arrayAdapterBlok.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spBlokPerumahan.adapter = arrayAdapterBlok
+        spBlokPerumahan.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val numberPosition = spBlokPerumahan.selectedItemPosition
+
+                valueIdBlokPerumahan = listIdBlokPerumahan[numberPosition]
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        }
     }
 
     private fun button() {
@@ -35,85 +138,59 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun buttonMoveLogin() {
-        registerBinding.tvLogin.setOnClickListener{
+        binding.tvLogin.setOnClickListener{
             startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
             finish()
         }
     }
 
     private fun buttonRegistrasi() {
-        registerBinding.apply {
+        binding.apply {
             btnRegistrasi.setOnClickListener {
-                if (etNama.text.isNotEmpty() && etAlamat.text.isNotEmpty()
-                    && etNomorHp.text.isNotEmpty() && etUsername.text.isNotEmpty()
-                    && etPassword.text.isNotEmpty()
-                ) {
+                var cek = false
+                if (etEditNama.toString().isEmpty()) {
+                    etEditNama.error = "Tidak Boleh Kosong"
+                    cek = true
+                }
+                if (etEditNoAlamat.toString().isEmpty()) {
+                    etEditNoAlamat.error = "Tidak Boleh Kosong"
+                    cek = true
+                }
+                if (etEditNomorHp.toString().isEmpty()) {
+                    etEditNomorHp.error = "Tidak Boleh Kosong"
+                    cek = true
+                }
+                if (etEditUsername.toString().isEmpty()) {
+                    etEditUsername.error = "Tidak Boleh Kosong"
+                    cek = true
+                }
+                if (etEditPassword.toString().isEmpty()) {
+                    etEditPassword.error = "Tidak Boleh Kosong"
+                    cek = true
+                }
+
+                if (!cek) {
                     loading.alertDialogLoading()
 
-                    Toast.makeText(this@RegisterActivity, "${etUsername.text}", Toast.LENGTH_SHORT).show()
-                    fetchCekUsers(etUsername.text.toString())
-                } else {
-                    if (etNama.text.isEmpty()) {
-                        etNama.error = "Nama Tidak Boleh Kosong"
-                    }
-                    if (etAlamat.text.isEmpty()) {
-                        etAlamat.error = "Alamat Tidak Boleh Kosong"
-                    }
-                    if (etNomorHp.text.isEmpty()) {
-                        etNomorHp.error = "Nomor HP Tidak Boleh Kosong"
-                    }
-                    if (etUsername.text.isEmpty()) {
-                        etUsername.error = "Username Tidak Boleh Kosong"
-                    }
-                    if (etPassword.text.isEmpty()) {
-                        etPassword.error = "Password Tidak Boleh Kosong"
-                    }
+                    postTambahData(
+                        etEditNama.text.toString().trim(),
+                        valueIdBlokPerumahan,
+                        etEditNoAlamat.text.toString().trim(),
+                        etEditNomorHp.text.toString(),
+                        etEditUsername.text.toString().trim(),
+                        etEditPassword.text.toString().trim()
+                    )
                 }
             }
         }
     }
 
-    private fun fetchCekUsers(username: String){
-        registerViewModel.cekUser(username)
-    }
-
-    private fun getCekUser(){
-        registerViewModel.getCekUser().observe(this@RegisterActivity){cekUser ->
-            when(cekUser){
-                is UIState.Success ->{
-                    if(cekUser.data.isNotEmpty()){
-                        Toast.makeText(this@RegisterActivity, "Maaf, Username Telah Ada", Toast.LENGTH_SHORT).show()
-                        loading.alertDialogCancel()
-                    }
-                    else{
-                        registerUser()
-                    }
-                }
-                is UIState.Failure ->{
-                    Toast.makeText(this@RegisterActivity, "Gagal", Toast.LENGTH_SHORT).show()
-                    loading.alertDialogCancel()
-                }
-            }
-        }
-    }
-
-    private fun registerUser() {
-        val nama = registerBinding.etNama.text.toString()
-        val alamat = registerBinding.etAlamat.text.toString()
-        val nomorHp = registerBinding.etNomorHp.text.toString()
-        val username = registerBinding.etUsername.text.toString()
-        val password = registerBinding.etPassword.text.toString()
-        val sebagai = "user"
-
-        registerViewModel.registerUser(nama, alamat, nomorHp, username, password, sebagai)
-    }
 
     private fun getResponseRegisterUser(){
-        registerViewModel.getRegisterUser().observe(this@RegisterActivity){response ->
+        viewModel.getRegisterUser().observe(this@RegisterActivity){ response ->
             when(response){
                 is UIState.Success ->{
                     if (!response.data.isNullOrEmpty()){
-                        val r = response.data[0]
                         if (response.data[0].status == "0"){
                             Toast.makeText(this@RegisterActivity, "Berhasil melakukan registrasi", Toast.LENGTH_SHORT).show()
                         }
@@ -133,45 +210,153 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-//    private fun cekUsers(usersModel: UsersModel){
-//        var username = ""
-//        usersModel.username?.let {
-//            username = it
-//        }
-//
-//        ApiConfig2.getRetrofit().cekUserRegistrasi("", username)
-//            .enqueue(object: Callback<ArrayList<UsersModel>> {
-//                override fun onResponse(call: Call<ArrayList<UsersModel>>, response: Response<ArrayList<UsersModel>>) {
-//                    if(response.body().isNullOrEmpty()){
-//                        registerUser(usersModel)
-//                    }
-//                    else{
-//                        Toast.makeText(this@RegisterActivity, "Username Sudah Ada", Toast.LENGTH_SHORT).show()
-//                        registerBinding.etUsername.error = "Username Sudah Ada"
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<ArrayList<UsersModel>>, t: Throwable) {
-//                    Toast.makeText(this@RegisterActivity, "Error Pada: ${t.message}", Toast.LENGTH_SHORT).show()
-//                }
-//
-//            })
-//    }
+    private fun fetchDataPerumahan() {
+        viewModel.fetchDataPerumahan()
+    }
 
-//    private fun registerUser(um: UsersModel){
-//        ApiConfig2.getRetrofit().addUser("", um.nama!!, um.alamat!!, um.nomorHp!!, um.username!!, um.password!!, um.sebagai!!)
-//            .enqueue(object: Callback<ResponseModel> {
-//                override fun onResponse(call: Call<ResponseModel>, response: Response<ResponseModel>) {
-//                    Toast.makeText(this@RegisterActivity, "Berhasil Membuat Akun", Toast.LENGTH_SHORT).show()
-//
-//                    Handler(Looper.getMainLooper()).postDelayed({
-//                        startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
-//                    }, 1000)
-//                }
-//
-//                override fun onFailure(call: Call<ResponseModel>, t: Throwable) {
-//                    Toast.makeText(this@RegisterActivity, "Gagal Membuat Akun", Toast.LENGTH_SHORT).show()
-//                }
-//            })
-//    }
+    private fun getDataPerumahan() {
+        viewModel.getDataPerumahan().observe(this@RegisterActivity){result->
+            when(result){
+                is UIState.Success-> setDataSuccessPerumahan(result.data)
+                is UIState.Failure-> setDataFailurePerumahan(result.message)
+            }
+        }
+    }
+
+    private fun setDataSuccessPerumahan(data: ArrayList<PerumahanModel>) {
+        listPerumahan = arrayListOf()
+        listPerumahan = data
+
+        listNamaPerumahan = arrayListOf()
+        listIdPerumahan = arrayListOf()
+        for(value in data){
+            if(value.jumlah_blok != "0"){
+                listNamaPerumahan.add(value.nama_perumahan!!)
+                listIdPerumahan.add(value.id_perumahan!!)
+            }
+        }
+
+        setSpinnerPerumahan()
+
+    }
+
+    private fun setDataFailurePerumahan(message: String) {
+        listNamaPerumahan = arrayListOf()
+    }
+
+    private fun fetchDataBlokPerumahan() {
+        viewModel.fetchDataBlokPerumahan()
+    }
+
+    private fun getDataBlokPerumahan() {
+        viewModel.getDataBlokPerumahan().observe(this@RegisterActivity){result->
+            when(result){
+                is UIState.Success-> setDataSuccessBlokPerumahan(result.data)
+                is UIState.Failure-> setDataFailureBlokPerumahan(result.message)
+            }
+        }
+    }
+
+    private fun setDataSuccessBlokPerumahan(data: ArrayList<PerumahanModel>) {
+        listBlokPerumahan = arrayListOf()
+        if(data.isNotEmpty()){
+            listBlokPerumahan = data
+            setBlokPerumahan(data)
+        }
+
+        setDataSpinner()
+    }
+
+    private fun setBlokPerumahan(data: ArrayList<PerumahanModel>) {
+        listNamaBlokPerumahan = arrayListOf()
+        listIdBlokPerumahan = arrayListOf()
+
+        for(value in data){
+            listNamaBlokPerumahan.add(value.blok_perumahan!!)
+            listIdBlokPerumahan.add(value.id_blok!!)
+        }
+
+    }
+
+    private fun setValueIdPerumahan(idPerumahan:String){
+        listNamaBlokPerumahan = arrayListOf()
+        listIdBlokPerumahan = arrayListOf()
+
+        for(value in listBlokPerumahan){
+            if(value.id_perumahan == idPerumahan){
+                listNamaBlokPerumahan.add(value.blok_perumahan!!)
+                listIdBlokPerumahan.add(value.id_blok!!)
+                Log.d("DetailTAG", "setValueIdPerumahan: $idPerumahan dan ${value.id_perumahan}")
+            }
+        }
+    }
+
+    private fun setDataFailureBlokPerumahan(message: String) {
+
+    }
+
+    private fun postTambahData(nama: String, idBlokPerumahan:String, noAlamat: String, nomorHp: String, username: String, password: String){
+        viewModel.postRegisterUser(nama, idBlokPerumahan, noAlamat, nomorHp, username, password, "user")
+    }
+
+    private fun getTambahData(){
+        viewModel.getRegisterUser().observe(this@RegisterActivity){result->
+            when(result){
+                is UIState.Success-> setTambahDataSuccess(result.data)
+                is UIState.Failure-> setTambahDataFailure(result.message)
+            }
+        }
+    }
+
+    private fun setTambahDataSuccess(responseModel: ArrayList<ResponseModel>) {
+
+        if(responseModel.isNotEmpty()){
+            if(responseModel[0].status=="0"){
+                dialogKonfirmasiBack()
+            } else{
+                Toast.makeText(this@RegisterActivity, responseModel[0].message_response, Toast.LENGTH_SHORT).show()
+            }
+        } else{
+            Toast.makeText(this@RegisterActivity, "Gagal Tambah Data", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun setTambahDataFailure(message: String) {
+        Toast.makeText(this@RegisterActivity, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun dialogKonfirmasiBack(){
+        val viewAlertDialog = View.inflate(this@RegisterActivity, R.layout.alert_dialog_konfirmasi, null)
+
+        val tvTitleKonfirmasi = viewAlertDialog.findViewById<TextView>(R.id.tvTitleKonfirmasi)
+        val tvBodyKonfirmasi = viewAlertDialog.findViewById<TextView>(R.id.tvBodyKonfirmasi)
+        val btnKonfirmasi = viewAlertDialog.findViewById<Button>(R.id.btnKonfirmasi)
+        val btnBatal = viewAlertDialog.findViewById<Button>(R.id.btnBatal)
+
+
+        tvTitleKonfirmasi.text = "Tambah Akun Berhasil"
+        tvBodyKonfirmasi.text = "Berhasil menambahkan akun, tekan konfirmasi untuk berpindah ke halaman login"
+
+        val alertDialog = AlertDialog.Builder(this@RegisterActivity)
+        alertDialog.setView(viewAlertDialog)
+        val dialogInputan = alertDialog.create()
+        dialogInputan.show()
+
+        btnKonfirmasi.setOnClickListener {
+            val i = Intent(this@RegisterActivity, LoginActivity::class.java)
+            i.putExtra("username", binding.etEditUsername.text.toString())
+            i.putExtra("password", binding.etEditPassword.text.toString())
+            startActivity(i)
+        }
+        btnBatal.setOnClickListener {
+            dialogInputan.dismiss()
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+        finish()
+    }
+
 }

@@ -10,10 +10,13 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">normal</item>
+    </style>
 
+    <style name="ButtonPrimary" parent="ButtonDefaultConfig">
+        <item name="backgroundTint">@color/biru_main</item>
     </style>
     <style name="ButtonSuccess" parent="ButtonDefaultConfig">
-        <item name="background">@drawable/bg_btn_success</item>
+        <item name="backgroundTint">@color/success</item>
     </style>
     <style name="ButtonError" parent="ButtonDefaultConfig">
         <item name="background">@drawable/bg_btn_danger</item>

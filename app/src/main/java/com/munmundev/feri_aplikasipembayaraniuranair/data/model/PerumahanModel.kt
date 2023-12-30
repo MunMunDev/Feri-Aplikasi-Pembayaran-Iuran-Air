@@ -42,8 +42,8 @@ class PerumahanModel(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id_blok)
         parcel.writeString(id_perumahan)
+        parcel.writeString(id_blok)
         parcel.writeString(nama_perumahan)
         parcel.writeString(blok_perumahan)
         parcel.writeString(jumlah_blok)
@@ -66,22 +66,3 @@ class PerumahanModel(
         }
     }
 }
-
-data class Perumahan(
-    @SerializedName("id_perumahan")
-    var id_perumahan: String,
-
-    @SerializedName("nama_perumahan")
-    var nama_perumahan: String
-)
-
-data class BlokPerumahan(
-    @SerializedName("id_blok")
-    var id_blok: String,
-
-    @SerializedName("id_perumahan")
-    var id_perumahan: String,
-
-    @SerializedName("blok_perumahan")
-    var blok_perumahan: String
-)

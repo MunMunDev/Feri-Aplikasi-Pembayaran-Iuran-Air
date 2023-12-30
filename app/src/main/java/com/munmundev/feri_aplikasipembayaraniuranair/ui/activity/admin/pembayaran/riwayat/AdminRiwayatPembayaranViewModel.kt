@@ -24,7 +24,7 @@ class AdminRiwayatPembayaranViewModel @Inject constructor(
     fun fetchData(idUser:String){
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val data = api.getPembayaranUser("", idUser)
+                val data = api.getRiwayatPembayaranUser("", idUser)
                 _riwayatPembayaran.postValue(UIState.Success(data))
             } catch (ex: Exception){
                 _riwayatPembayaran.postValue(UIState.Failure("Gagal: ${ex.message}"))

@@ -28,6 +28,9 @@ class UsersModel(
 
     @SerializedName("sebagai")
     var sebagai: String? = null,
+
+    @SerializedName("perumahan")
+    var perumahan: ArrayList<PerumahanModel>? = null
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -37,7 +40,8 @@ class UsersModel(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readString()
+        parcel.readString(),
+        parcel.createTypedArrayList(PerumahanModel.CREATOR)
     ) {
     }
 
@@ -50,6 +54,7 @@ class UsersModel(
         parcel.writeString(username)
         parcel.writeString(password)
         parcel.writeString(sebagai)
+        parcel.writeTypedList(perumahan)
     }
 
     override fun describeContents(): Int {

@@ -16,6 +16,8 @@
         <domain includeSubdomains="true">192.168.1.23</domain>
         <domain includeSubdomains="true">10.153.31.157</domain>
         <domain includeSubdomains="true">10.130.118.55</domain>
+        <domain includeSubdomains="true">192.168.173.91</domain>
+
 <!--        <domain includeSubdomains="true">http://aplikasitugas12345.000webhostapp.com</domain>-->
     </domain-config>
 </network-security-config>

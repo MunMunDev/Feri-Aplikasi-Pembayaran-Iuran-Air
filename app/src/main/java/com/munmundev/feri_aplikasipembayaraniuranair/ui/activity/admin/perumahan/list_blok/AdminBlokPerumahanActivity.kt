@@ -143,7 +143,7 @@ class AdminBlokPerumahanActivity : AppCompatActivity() {
         listIdPerumahan = arrayListOf()
         for (value in listPerumahan){
             listNamaPerumahan.add(value.nama_perumahan!!)
-            listIdPerumahan.add(value.id_blok!!)
+            listIdPerumahan.add(value.id_perumahan!!)
         }
 
         binding.titleHeader.text = namaPerumahan
@@ -238,7 +238,6 @@ class AdminBlokPerumahanActivity : AppCompatActivity() {
                 val numberPosition = spPerumahan.selectedItemPosition
 
                 valueIdPerumahan = listIdPerumahan[numberPosition]
-                Toast.makeText(this@AdminBlokPerumahanActivity, "$valueIdPerumahan", Toast.LENGTH_SHORT).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

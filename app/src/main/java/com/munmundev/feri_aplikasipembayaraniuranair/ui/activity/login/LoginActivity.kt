@@ -32,7 +32,19 @@ class LoginActivity : AppCompatActivity() {
 
         konfigurationUtils()
         button()
+        setDataSebelumnya()
         getData()
+    }
+
+    private fun setDataSebelumnya() {
+        val extras = intent.extras
+        if(extras != null) {
+            val username = extras.getString("username")
+            val password = extras.getString("password")
+
+            loginBinding.etUsername.setText(username)
+            loginBinding.etPassword.setText(password)
+        }
     }
 
     private fun konfigurationUtils() {
@@ -85,7 +97,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
                 is UIState.Failure ->{
-                    Toast.makeText(this@LoginActivity, "Gagal bang ${user.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, "${user.message}", Toast.LENGTH_SHORT).show()
                     loading.alertDialogCancel()
                 }
             }
@@ -103,7 +115,7 @@ class LoginActivity : AppCompatActivity() {
             valueIdUser = it.toInt()
         }
         val valueNama = userModel[0].nama.toString()
-//        val valueIdBlok = userModel[0].idBlok.toString()
+        val valueIdBlok = userModel[0].idBlok.toString()
         val valueAlamat = userModel[0].alamat.toString()
         val valueNomorHp = userModel[0].nomorHp.toString()
         val valueUsername = userModel[0].username.toString()
@@ -115,7 +127,7 @@ class LoginActivity : AppCompatActivity() {
         try{
             Toast.makeText(this@LoginActivity, "Login Berhasil", Toast.LENGTH_SHORT).show()
 //            sharedPreferencesLogin.setLogin(valueIdUser, valueNama, valueIdBlok, valueAlamat, valueNomorHp, valueUsername, valuePassword, valueSebagai, )
-            sharedPreferencesLogin.setLogin(valueIdUser, valueNama, valueAlamat, valueNomorHp, valueUsername, valuePassword, valueSebagai)
+            sharedPreferencesLogin.setLogin(valueIdUser, valueIdBlok, valueNama, valueAlamat, valueNomorHp, valueUsername, valuePassword, valueSebagai)
             if(valueSebagai=="user"){
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
             } else{

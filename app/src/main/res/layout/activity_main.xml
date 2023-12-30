@@ -177,7 +177,7 @@
                 android:paddingEnd="12dp"
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
-                android:text="Anda Sudah Membayar Bulan ini."
+                android:text="Anda Tidak Memiliki Tagihan"
                 android:textSize="16sp"
                 android:textColor="@color/black"
                 android:textStyle="normal"

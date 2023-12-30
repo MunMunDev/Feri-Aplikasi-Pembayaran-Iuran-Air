@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.munmundev.feri_aplikasipembayaraniuranair.data.database.api.ApiService
-import com.munmundev.feri_aplikasipembayaraniuranair.data.model.Perumahan
 import com.munmundev.feri_aplikasipembayaraniuranair.data.model.PerumahanModel
 import com.munmundev.feri_aplikasipembayaraniuranair.data.model.ResponseModel
 import com.munmundev.feri_aplikasipembayaraniuranair.utils.network.UIState

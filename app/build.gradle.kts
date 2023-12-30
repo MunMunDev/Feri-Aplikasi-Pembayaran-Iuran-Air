@@ -5,6 +5,7 @@ plugins {
     // Dagger Hilt
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -87,6 +88,9 @@ dependencies {
     // MIDTRANS
     implementation ("com.midtrans:uikit:2.0.0-SANDBOX")
 //    implementation ("com.midtrans:uikit:2.0.0")
+
+    // Firebase
+    implementation("com.google.firebase:firebase-messaging:23.4.0")
 
 }
 

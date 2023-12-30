@@ -21,6 +21,7 @@ class AccountViewModel @Inject constructor(
     var _user = MutableLiveData<UIState<ArrayList<UsersModel>>>()
     var _responsePostTambahUser = MutableLiveData<UIState<ArrayList<ResponseModel>>>()
     var _responsePostUpdateUser = MutableLiveData<UIState<ArrayList<ResponseModel>>>()
+    var _responsePostHapusUser = MutableLiveData<UIState<ArrayList<ResponseModel>>>()
     var _perumahan = MutableLiveData<UIState<ArrayList<PerumahanModel>>>()
     var _blokPerumahan = MutableLiveData<UIState<ArrayList<PerumahanModel>>>()
 
@@ -35,21 +36,10 @@ class AccountViewModel @Inject constructor(
         }
     }
 
-    fun postTambahUser(nama:String, alamat:String, nomorHp:String, username:String, password:String, sebagai:String){
+    fun postTambahUser(nama: String, idBlokPerumahan:String, noAlamat: String, nomorHp: String, username: String, password: String, sebagai:String){
         viewModelScope.launch(Dispatchers.IO){
             try {
-                val data = api.addUser("", nama, alamat, nomorHp, username, password, sebagai)
-                _responsePostTambahUser.postValue(UIState.Success(data))
-            } catch (ex: Exception){
-                _responsePostTambahUser.postValue(UIState.Failure("Error: ${ex.message}"))
-            }
-        }
-    }
-
-    fun postUpdateUser(idUser:String, nama:String, alamat:String, nomorHp:String, username:String, password:String){
-        viewModelScope.launch(Dispatchers.IO){
-            try {
-                val data = api.postUpdateUser("", idUser, nama, alamat, nomorHp, username, password)
+                val data = api.addUser("", nama, idBlokPerumahan, noAlamat, nomorHp, username, password, sebagai)
                 _responsePostTambahUser.postValue(UIState.Success(data))
             } catch (ex: Exception){
                 _responsePostTambahUser.postValue(UIState.Failure("Error: ${ex.message}"))
@@ -79,9 +69,36 @@ class AccountViewModel @Inject constructor(
         }
     }
 
+    fun postUpdateUser(
+        idUser:String, nama: String, idBlok:String,
+        noAlamat: String, nomorHp: String, username: String,
+        password: String, usernameLama: String
+    ){
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                val data = api.postUpdateUser("", idUser, nama, idBlok, noAlamat, nomorHp, username, password, usernameLama)
+                _responsePostUpdateUser.postValue(UIState.Success(data))
+            } catch (ex: Exception){
+                _responsePostUpdateUser.postValue(UIState.Failure("Error: ${ex.message}"))
+            }
+        }
+    }
+
+    fun postHapusUser(idUser: String){
+        viewModelScope.launch(Dispatchers.IO){
+            try {
+                val hapusUser = api.postHapusUser("", idUser)
+                _responsePostHapusUser.postValue(UIState.Success(hapusUser))
+            } catch (ex: Exception){
+                _responsePostHapusUser.postValue(UIState.Failure("Error: ${ex.message}"))
+            }
+        }
+    }
+
     fun getDataUsers(): LiveData<UIState<ArrayList<UsersModel>>> = _user
     fun getTambahData(): LiveData<UIState<ArrayList<ResponseModel>>> = _responsePostTambahUser
     fun getUpdateData(): LiveData<UIState<ArrayList<ResponseModel>>> = _responsePostUpdateUser
+    fun getHapusUser(): LiveData<UIState<ArrayList<ResponseModel>>> = _responsePostHapusUser
     fun getDataPerumahan(): LiveData<UIState<ArrayList<PerumahanModel>>> = _perumahan
     fun getDataBlokPerumahan(): LiveData<UIState<ArrayList<PerumahanModel>>> = _blokPerumahan
 }

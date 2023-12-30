@@ -84,10 +84,6 @@ class AdminListBlokActivity : AppCompatActivity() {
         }
     }
 
-    private fun fetchDataUser(idBlok: String) {
-        viewModel.fetchDataUser(idBlok)
-    }
-
     private fun fetchDataBlok(idPerumahan: String) {
         viewModel.fetchDataBlok(idPerumahan)
     }
@@ -128,6 +124,10 @@ class AdminListBlokActivity : AppCompatActivity() {
         Toast.makeText(this@AdminListBlokActivity, message, Toast.LENGTH_SHORT).show()
     }
 
+    private fun fetchDataUser(idBlok: String) {
+        viewModel.fetchDataUser(idBlok)
+    }
+
     private fun getDataUser() {
         viewModel.getDataUser().observe(this@AdminListBlokActivity){result->
             when(result){
@@ -144,7 +144,7 @@ class AdminListBlokActivity : AppCompatActivity() {
     private fun setDataUserSuccess(data: ArrayList<UsersModel>) {
         if(data.isNotEmpty()){
             adapterUser = AdminUsersAdapter(data, object : AdminUsersAdapter.ClickItemListener{
-                override fun onClickItem(user: UsersModel, it: View) {
+                override fun onClickItem(user: UsersModel, it: View, position:Int) {
                     val popupMenu = PopupMenu(this@AdminListBlokActivity, it)
                     popupMenu.inflate(R.menu.popup_menu_admin_pembayaran)
                     popupMenu.setOnMenuItemClickListener(object :
